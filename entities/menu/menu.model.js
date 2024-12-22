@@ -27,7 +27,7 @@ const menuSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: function () {
-      return !this.isDrink; // Price is required only when the item is not a drink
+      return !this.isDrink;
     },
   },
   image: {
@@ -48,16 +48,15 @@ const menuSchema = new mongoose.Schema({
   drinkType: {
     type: String,
     required: function () {
-      return this.isDrink; // Drink type is required only if it is a drink
+      return this.isDrink;
     },
   },
   variations: {
     type: [variationSchema],
     validate: {
       validator: function (variations) {
-        // Ensure variations are present for drinks and empty for non-drinks
         if (this.isDrink) {
-          return variations && variations.length > 0; // Variations must exist for drink items
+          return variations && variations.length > 0;
         }
       },
       message: "Variations are only allowed for drink items.",
